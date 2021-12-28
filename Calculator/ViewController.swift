@@ -16,7 +16,7 @@ enum Operation {
 }
 
 class ViewController: UIViewController {
-
+    
     //MARK: Properties
     @IBOutlet weak var numberOutputLb: UILabel!
     
@@ -32,11 +32,47 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    func operation(_ operation: Operation){
+        if self.currentOperation != .unknown {
+            if !displayNumber.isEmpty {
+                secondOperend = displayNumber
+                displayNumber = ""
+                
+                guard let firstOperand = Double(self.firstOperand) else { return }
+                guard let secondOperand = Double(self.secondOperend) else { return }
+                
+                switch self.currentOperation {
+                case .Add:
+                    result = "\(firstOperand + secondOperand)"
+                case .subtract:
+                    result = "\(firstOperand - secondOperand)"
+                case .Divied:
+                    result = "\(firstOperand / secondOperand)"
+                case .Multiply:
+                    result = "\(firstOperand * secondOperand)"
+                default:
+                    break
+                }
+                
+                if let result = Double(self.result), result.truncatingRemainder(dividingBy: 1) == 0 {
+                    self.result = "\(Int(result))"
+                }
+                self.firstOperand = self.result
+                self.numberOutputLb.text = self.result
+            }
+            currentOperation = operation
+        }else {
+            self.firstOperand = displayNumber
+            currentOperation = operation
+            displayNumber = ""
+        }
+    }
+    
     //MARK: Action Function
     @IBAction func tapNumberBtn(_ sender: UIButton) {
         guard let numberValue = sender.title(for: .normal) else { return }
         if displayNumber.count < 9 {
-           displayNumber += numberValue
+            displayNumber += numberValue
             numberOutputLb.text = displayNumber
         }
     }
@@ -58,19 +94,26 @@ class ViewController: UIViewController {
     }
     
     @IBAction func tapDivideBtn(_ sender: UIButton) {
+        operation(.Divied)
     }
     
     @IBAction func tapMultiplyBtn(_ sender: UIButton) {
+        operation(.Multiply)
     }
     
     @IBAction func tapSubtractBtn(_ sender: UIButton) {
+        operation(.subtract)
     }
     
     @IBAction func tapAddBtn(_ sender: UIButton) {
+        operation(.Add)
     }
     
     @IBAction func tapEqualBtn(_ sender: UIButton) {
+        operation(self.currentOperation)
     }
+    
+    
     
 }
 
