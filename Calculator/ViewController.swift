@@ -69,6 +69,7 @@ class ViewController: UIViewController {
     }
     
     //MARK: Action Function
+    // 숫자패드
     @IBAction func tapNumberBtn(_ sender: UIButton) {
         guard let numberValue = sender.title(for: .normal) else { return }
         if displayNumber.count < 9 {
@@ -77,6 +78,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // AC
     @IBAction func tapClearBtn(_ sender: UIButton) {
         displayNumber = ""
         firstOperand = ""
@@ -85,7 +87,7 @@ class ViewController: UIViewController {
         currentOperation = .unknown
         numberOutputLb.text = "0"
     }
-    
+    // .
     @IBAction func tapDotBtn(_ sender: UIButton) {
         if displayNumber.count < 8, !displayNumber.contains(".") {
             displayNumber += displayNumber.isEmpty ? "0." : "."
@@ -93,22 +95,27 @@ class ViewController: UIViewController {
         }
     }
     
+    // 나누기 버튼
     @IBAction func tapDivideBtn(_ sender: UIButton) {
         operation(.Divied)
     }
     
+    // 곱하기버튼
     @IBAction func tapMultiplyBtn(_ sender: UIButton) {
         operation(.Multiply)
     }
     
+    //빼기 버튼
     @IBAction func tapSubtractBtn(_ sender: UIButton) {
         operation(.subtract)
     }
     
+    // 더하기 버튼
     @IBAction func tapAddBtn(_ sender: UIButton) {
         operation(.Add)
     }
     
+    // = 버튼
     @IBAction func tapEqualBtn(_ sender: UIButton) {
         operation(self.currentOperation)
     }
