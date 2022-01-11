@@ -17,7 +17,7 @@ enum Operation {
 
 class ViewController: UIViewController {
     
-    //MARK: Properties
+    //MARK: - Properties
     @IBOutlet weak var numberOutputLb: UILabel!
     
     var displayNumber = ""  // 버튼을 누를때마다 표시되는 숫자
@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     var result = ""         // 계산의 결과 값
     var currentOperation: Operation = .unknown  //현재 계산기에 어떤연산자가 입력되어있는지 연산자의 값을 표시
     
-    //MARK: LiceCycle
+    //MARK: - LiceCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -40,7 +40,7 @@ class ViewController: UIViewController {
                 
                 guard let firstOperand = Double(self.firstOperand) else { return }
                 guard let secondOperand = Double(self.secondOperend) else { return }
-                
+                // Optrion Enum에 case에 따라 연산
                 switch self.currentOperation {
                 case .Add:
                     result = "\(firstOperand + secondOperand)"
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         }
     }
     
-    //MARK: Action Function
+    //MARK: - IBAction
     // 숫자패드
     @IBAction func tapNumberBtn(_ sender: UIButton) {
         guard let numberValue = sender.title(for: .normal) else { return }
@@ -78,7 +78,7 @@ class ViewController: UIViewController {
         }
     }
     
-    // AC
+    // AC 초기화
     @IBAction func tapClearBtn(_ sender: UIButton) {
         displayNumber = ""
         firstOperand = ""
@@ -97,26 +97,31 @@ class ViewController: UIViewController {
     
     // 나누기 버튼
     @IBAction func tapDivideBtn(_ sender: UIButton) {
+        // operation함수를 재사용하여 해당 버튼의 연산값을 보내어 연산값에 따라 operation함수에서 계산 
         operation(.Divied)
     }
     
     // 곱하기버튼
     @IBAction func tapMultiplyBtn(_ sender: UIButton) {
+        // operation함수를 재사용하여 해당 버튼의 연산값을 보내어 연산값에 따라 operation함수에서 계산 
         operation(.Multiply)
     }
     
     //빼기 버튼
     @IBAction func tapSubtractBtn(_ sender: UIButton) {
+        // operation함수를 재사용하여 해당 버튼의 연산값을 보내어 연산값에 따라 operation함수에서 계산 
         operation(.subtract)
     }
     
     // 더하기 버튼
     @IBAction func tapAddBtn(_ sender: UIButton) {
+        // operation함수를 재사용하여 해당 버튼의 연산값을 보내어 연산값에 따라 operation함수에서 계산 
         operation(.Add)
     }
     
     // = 버튼
     @IBAction func tapEqualBtn(_ sender: UIButton) {
+        // operation함수를 재사용하여 해당 버튼의 연산값을 보내어 연산값에 따라 operation함수에서 계산 
         operation(self.currentOperation)
     }
     
